@@ -10,7 +10,7 @@ echo "inputfile $1"
 #-woorden korter dan 3 letters
 #-woorden die beginnen met een cijfer
 #- alle woorden met spaties, kommas, dubbele punten, underscores
-#- woorden die bestaan uit minimaal letter-cijfer-letter     
+#- woorden die bestaan uit minimaal letter-cijfer-letter
 #- woorden met niet-nl characters
 
 DIR=Nextflow/
@@ -22,8 +22,8 @@ cp $2 $DIR
 echo " ticcl.nf --inputdir $DIR --inputtype text --lexicon $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict --alphabet $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.lc.chars --charconfus $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.c20.d2.confusion --outputdir $DIR/ticcle-output  "
 
 
-#run ticcl 
- ticcl.nf --inputdir $DIR --inputtype text --lexicon $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict --alphabet $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.lc.chars --charconfus $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.c20.d2.confusion --outputdir $DIR/ticcle-output  
+#run ticcl
+ ticcl.nf --inputdir $DIR --inputtype text --lexicon $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict --alphabet $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.lc.chars --charconfus $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.c20.d2.confusion --outputdir $DIR/ticcle-output
 
  # actual output is called: $DIR/ticcle-output/corpus.wordfreqlist.tsv.clean.ldcalc.ranked
 
@@ -33,7 +33,12 @@ python3 rewriteTiccl.v3.py  $DIR/ticcle-output/corpus.wordfreqlist.tsv.clean.ldc
  #run the lemmatizer with a wordlist as input
 mblem --wordlist $2.ticclcorr > $2.mblem
 cut -f 2 -d',' $2.mblem > $2.lemma
- 
+
+if [ ! -d compound-splitter-nl ]; then
+    #install compound splitter if it is not installed yet
+    ./install-deps.sh
+fi
+
  # changr dir for de-compounding
 cd compound-splitter-nl
 #run splitter
