@@ -3,8 +3,6 @@ import collections
 import os
 import sys
 
-
-
 ticcloutput = sys.argv[1]  #nlfiscaal: "TICCLv2.OUT.clean.ldcalc.ranked
 inputwords  = sys.argv[2]  # nlfiscaal: nlf_wordlist.v2
 
@@ -52,24 +50,21 @@ with open(inputwords,'r',encoding='utf-8') as lexicon:
     for w in lexicon.readlines():
         w = w.strip()
         if( w in ticcl_corrections):
-            new_lexicon[w] = ticcl_corrections[w]
+ #           new_lexicon[w] = ticcl_corrections[w]
+            print(ticcl_corrections[w])
         else:
-            new_lexicon[w] =  w     #"-"
-            correct_counter += 1
+#            new_lexicon[w] =  w     #"-"
+#            correct_counter += 1
+            print(w)
 
 
 
+#newlexlength = len(new_lexicon)
+#print("new lexicon has ",newlexlength, " items and ", correct_counter, " words that were not corrected by ticcl \n", file=sys.stderr)
 
 
-
-
-
-newlexlength = len(new_lexicon)
-print("new lexicon has ",newlexlength, " items and ", correct_counter, " words that were not corrected by ticcl \n", file=sys.stderr)
-
-
-sorted_new_lexicon = collections.OrderedDict(sorted(new_lexicon.items()))
+#sorted_new_lexicon = collections.OrderedDict(sorted(new_lexicon.items()))
 #for k, v in sorted_new_lexicon.items(): print(k + "\t" + str(v))
-for k, v in sorted_new_lexicon.items(): print(str(v))
+#for k, v in sorted_new_lexicon.items(): print(str(v))
 
 #     z.isupper() or z.islower()
