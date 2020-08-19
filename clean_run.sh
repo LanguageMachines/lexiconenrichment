@@ -36,12 +36,12 @@ cp $1.clean.txt $DIR
 echo " ticcl.nf --inputdir $DIR --inputtype text --lexicon $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict --alphabet $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.lc.chars --charconfus $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.c20.d2.confusion --outputdir $DIR/ticcle-output --nofoliacorrect "
 
 #run ticcl
-#ticcl.nf --inputdir $DIR --inputtype text --lexicon $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict --alphabet $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.lc.chars --charconfus $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.c20.d2.confusion --outputdir $DIR/ticcle-output --nofoliacorrect || exit 1
+ticcl.nf --inputdir $DIR --inputtype text --lexicon $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict --alphabet $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.lc.chars --charconfus $LM_PREFIX/opt/PICCL/data/int/nld/nld.aspell.dict.c20.d2.confusion --outputdir $DIR/ticcle-output --nofoliacorrect || exit 1
 
  # actual output is called: $DIR/ticcle-output/corpus.wordfreqlist.tsv.clean.ldcalc.ranked
 
  #we merge this with the uncorrected forms
-#python3 rewriteTiccl.v3.py  $DIR/ticcle-output/corpus.wordfreqlist.tsv.clean.ldcalc.ranked $1.clean.txt > $1.clean.txt.ticclcorr || exit 1
+python3 rewriteTiccl.v3.py  $DIR/ticcle-output/corpus.wordfreqlist.tsv.clean.ldcalc.ranked $1.clean.txt > $1.clean.txt.ticclcorr || exit 1
 
  #run the lemmatizer with a wordlist as input
 mblem --wordlist $1.clean.txt.ticclcorr > $1.clean.txt.mblem  || exit 1
@@ -49,7 +49,7 @@ cut -f 2 -d ',' $1.clean.txt.mblem > $1.clean.txt.lemma || exit 1
 
 if [ ! -d compound-splitter-nl ]; then
     #install compound splitter if it is not installed yet
-    ./install-deps.sh || exit 1
+    ./install_deps.sh || exit 1
 fi
 
  # changr dir for de-compounding

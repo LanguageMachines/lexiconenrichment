@@ -3,5 +3,6 @@ wget https://ilps.science.uva.nl/ilps/wp-content/uploads/sites/6/files/compound-
 tar -xvzf compound-splitter-nl.tar.gz || exit 2
 cd compound-splitter-nl
 ln -sf ../compoundwords.edited.out
-ln -sf ../compound_server.conf
-cd -
+rm compound_server.conf
+ln -s ../compound_server.conf
+cd ..
