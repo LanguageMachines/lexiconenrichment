@@ -52,14 +52,12 @@ if [ ! -d compound-splitter-nl ]; then
     ./install_deps.sh || exit 1
 fi
 
- # changr dir for de-compounding
-cd compound-splitter-nl
 #run splitter -we need to add current dir to perl-path for the script to work
-perlpath=`pwd`
+perlpath=`pwd`/compound-splitter-nl
+echo "$perlpath"
 export PERL5LIB=$perlpath
-perl compound_splitter.pl ../compound_server.conf ../$1.clean.txt.lemma |cut -d' '  f2- > ../$1.clean.txt.lemma_compounds || exit 1
+perl compound-splitter-nl/compound_splitter.pl compound_server.conf $1.clean.txt.lemma  > $1.clean.txt.lemma_compounds || exit 1
 
-cd ..
 
 #clean compounds
 perl -pe 's/ tus / tussen /g; s/ bin / binnen /g;' < $1.clean.txt.lemma_compounds |awk '{print $2,$3,$4,$5,$6;}' > $1.clean.txt.compounds || exit 1
@@ -68,3 +66,4 @@ perl -pe 's/ tus / tussen /g; s/ bin / binnen /g;' < $1.clean.txt.lemma_compound
 #with one word per line,
 #per line: original word, spelchecked word, lemma, compound
 paste -d',' $1.clean.txt $1.clean.txt.ticclcorr $1.clean.txt.lemma $1.clean.txt.compounds > $2.processed.csv || exit 1
+
