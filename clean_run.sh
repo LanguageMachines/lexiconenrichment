@@ -67,3 +67,4 @@ perl -pe 's/ tus / tussen /g; s/ bin / binnen /g;' < $1.clean.txt.lemma_compound
 #per line: original word, spelchecked word, lemma, compound
 paste -d',' $1.clean.txt $1.clean.txt.ticclcorr $1.clean.txt.lemma $1.clean.txt.compounds > $2.processed.csv || exit 1
 
+echo "ready: output is witten to  $2.processed.csv"

@@ -16,7 +16,16 @@ Pipeline script to clean and enrich a word list.
 ## Usage
 
 1. Start an interactive shell in a new container: ``$ docker run -t -i lexiconenrichment``.
-2. Invoke ``clean_run.sh`` with two parameters:
-    - TODO
+2. Invoke ``clean_run.sh`` with two parameters: inputfile outputname
+    
+The input should be the list of one word per line in the format: word,STATUSCODE
+The information status codes are numbers
 
+Only words with Statuscode 0 or 10 are included.
+
+The output is word per line, followed by spellchecked version, lemma, compound parts
+
+example output:
+
+binnnenkomststempel,binnenkomststempel,binnenkomststempel,binnen komst stempel 
 
