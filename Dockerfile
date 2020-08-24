@@ -6,4 +6,5 @@ WORKDIR /home/lamachine
 RUN git clone https://github.com/LanguageMachines/lexiconenrichment
 WORKDIR lexiconenrichment
 RUN ./install_deps.sh
+RUN sudo ldconfig
 CMD /bin/bash -l
